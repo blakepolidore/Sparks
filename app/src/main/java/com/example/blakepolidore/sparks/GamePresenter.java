@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Created by blakepolidore on 10/26/17.
  */
 
-public class GamePresenter implements GameContract.Presenter {
+public class GamePresenter implements GameContract.Presenter, GameContract.Presenter.TimerListener {
 
     private GameContract.View view;
     private GameContract.Manager manager;
@@ -22,20 +22,8 @@ public class GamePresenter implements GameContract.Presenter {
 
     @Override
     public void start() {
-        manager.retrieveData(new GameContract.Manager.DataRetrievalCallback() {
-            @Override
-            public void onDataRetrieved(ArrayList<Options> options, ArrayList<Profile> profiles, String type) {
-                view.showOptions(options);
-                if (type.equals(Result.ICEBREAKER)) {
-                    view.showProfiles(profiles);
-                }
-            }
-
-            @Override
-            public void onRetrievalFailed() {
-                view.showNoData();
-            }
-        });
+        manager.setTimerListener(this);
+        retrieveData();
     }
 
     @Override
@@ -54,6 +42,34 @@ public class GamePresenter implements GameContract.Presenter {
             @Override
             public void onFailure() {
                 view.showVoteFailure();
+            }
+        });
+    }
+
+    @Override
+    public void onTimerTick(long millisToFinish) {
+        view.showTimeRemaining(millisToFinish);
+    }
+
+    @Override
+    public void onTimerFinished() {
+        retrieveData();
+        view.clearData();
+    }
+
+    private void retrieveData() {
+        manager.retrieveData(new GameContract.Manager.DataRetrievalCallback() {
+            @Override
+            public void onDataRetrieved(ArrayList<Options> options, ArrayList<Profile> profiles, String type) {
+                view.showOptions(options);
+                if (type.equals(Result.ICEBREAKER)) {
+                    view.showProfiles(profiles);
+                }
+            }
+
+            @Override
+            public void onRetrievalFailed() {
+                view.showNoData();
             }
         });
     }

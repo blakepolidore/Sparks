@@ -18,6 +18,9 @@ public interface GameContract {
 
         void showVoteSuccessful();
         void showVoteFailure();
+
+        void clearData();
+        void showTimeRemaining(long msRemaining);
     }
 
     interface Presenter {
@@ -25,12 +28,17 @@ public interface GameContract {
         void stop();
 
         void optionChosen(String answerId);
+
+        interface TimerListener {
+            void onTimerTick(long millisToFinish);
+            void onTimerFinished();
+        }
     }
 
     interface Manager {
         void retrieveData(DataRetrievalCallback callback);
-
         void optionChosen(String answerId, OptionChosenCallback callback);
+        void setTimerListener(Presenter.TimerListener listener);
 
         interface DataRetrievalCallback {
             void onDataRetrieved(ArrayList<Options> options, ArrayList<Profile> profiles, String type);

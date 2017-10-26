@@ -6,11 +6,11 @@ package com.example.blakepolidore.sparks.models;
 
 public class VoteBody {
 
-    private String answerId;
-    private String questionId;
+    private int option;
+    private String game_id;
 
-    public VoteBody(String answerId, String questionId) {
-        this.answerId = answerId;
-        this.questionId = questionId;
+    public VoteBody(int option, String gameId) {
+        this.option = option;
+        this.game_id = gameId;
     }
 }

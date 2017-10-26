@@ -8,13 +8,13 @@ public class Options {
 
     private String img_url;
     private String description;
-    private String options_id;
+    private String option_id;
     private int num_of_votes;
 
     public Options(String imageUrl, String description, String id, int numOfVotes) {
         this.img_url = imageUrl;
         this.description = description;
-        this.options_id = id;
+        this.option_id = id;
         this.num_of_votes = numOfVotes;
     }
 
@@ -35,11 +35,11 @@ public class Options {
     }
 
     public String getOptionId() {
-        return options_id;
+        return option_id;
     }
 
     public void setOptionId(String id) {
-        this.options_id = id;
+        this.option_id = id;
     }
 
     public int getNumOfVotes() {
