@@ -14,9 +14,9 @@ import retrofit2.http.POST;
 
 public interface GameService {
 
-    @GET("")
+    @GET("game")
     Call<ResponseRoot> getGame();
 
-    @POST
+    @POST("game")
     Call<ResponseRoot> postResults(@Body VoteBody body);
 }

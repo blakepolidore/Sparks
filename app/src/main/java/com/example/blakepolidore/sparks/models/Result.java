@@ -13,14 +13,14 @@ public class Result {
     private String type;
     private String expiration;
     private Options[] options;
-    private Profile[] profiles;
+    private Profile[] profile;
 
     public Result(String id, String type, String expiration, Options[] options, Profile[] profiles) {
         this.id = id;
         this.type = type;
         this.expiration = expiration;
         this.options = options;
-        this.profiles = profiles;
+        this.profile = profiles;
     }
 
     public String getId() {
@@ -40,6 +40,6 @@ public class Result {
     }
 
     public Profile[] getProfiles() {
-        return profiles;
+        return profile;
     }
 }

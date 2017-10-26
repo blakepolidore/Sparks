@@ -9,9 +9,9 @@ public class Options {
     private String imageUrl;
     private String description;
     private String id;
-    private String numOfVotes;
+    private int numOfVotes;
 
-    public Options(String imageUrl, String description, String id, String numOfVotes) {
+    public Options(String imageUrl, String description, String id, int numOfVotes) {
         this.imageUrl = imageUrl;
         this.description = description;
         this.id = id;
@@ -42,11 +42,11 @@ public class Options {
         this.id = id;
     }
 
-    public String getNumOfVotes() {
+    public int getNumOfVotes() {
         return numOfVotes;
     }
 
-    public void setNumOfVotes(String numOfVotes) {
+    public void setNumOfVotes(int numOfVotes) {
         this.numOfVotes = numOfVotes;
     }
 }

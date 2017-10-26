@@ -1,5 +1,9 @@
 package com.example.blakepolidore.sparks;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.example.blakepolidore.sparks.models.Options;
 import com.example.blakepolidore.sparks.models.Profile;
 import com.example.blakepolidore.sparks.models.ResponseRoot;
@@ -7,7 +11,9 @@ import com.example.blakepolidore.sparks.models.Result;
 import com.example.blakepolidore.sparks.models.VoteBody;
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,15 +28,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GameManager implements GameContract.Manager {
 
     private final static String GAME_ID = "gameId";
+    private final static String TAG = "GameManager";
 
     private Retrofit retrofit;
+    private Context context;
+    private SharedPreferences sharedPreferences;
 
-    public GameManager() {
+    public GameManager(Context context) {
+        this.context = context;
 
         retrofit = new Retrofit.Builder()
                     .addConverterFactory(GsonConverterFactory.create(new Gson()))
-                    .baseUrl("url")
+                    .baseUrl("http://sparks-cmb.herokuapp.com/")
                     .build();
+
+        sharedPreferences = context.getSharedPreferences(GAME_ID, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -41,7 +53,7 @@ public class GameManager implements GameContract.Manager {
                     public void onResponse(Call<ResponseRoot> call, Response<ResponseRoot> response) {
                         if (response.isSuccessful() && response.body() != null) {
                             Result result = response.body().getResult();
-                            GameApplication.getInstance().saveToSharedPreferences(GAME_ID, result.getId());
+                            sharedPreferences.edit().putString(GAME_ID, result.getId()).commit();
 
                             ArrayList<Options> options = new ArrayList<Options>();
                             for (Options option : result.getOptions()) {
@@ -55,12 +67,18 @@ public class GameManager implements GameContract.Manager {
 
                             callback.onDataRetrieved(options, profiles, result.getType());
                         } else {
+                            try {
+                                Log.d(TAG, "code " + response.code() + " error body " + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             callback.onRetrievalFailed();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseRoot> call, Throwable t) {
+                        Log.d(TAG, "failure " + t.getMessage());
                         callback.onRetrievalFailed();
                     }
                 });
@@ -68,7 +86,8 @@ public class GameManager implements GameContract.Manager {
 
     @Override
     public void optionChosen(String answerId, OptionChosenCallback callback) {
-        VoteBody body = new VoteBody(answerId, GameApplication.getInstance().getStringFromSharedPrefs(GAME_ID));
+        VoteBody body = new VoteBody(answerId, sharedPreferences.getString(GAME_ID, null
+        ));
         retrofit.create(GameService.class).postResults(body)
                 .enqueue(new Callback<ResponseRoot>() {
                     @Override

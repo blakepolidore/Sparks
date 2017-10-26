@@ -38,7 +38,7 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
         adapter = new OptionsAdapter(this, this);
         recyclerView.setAdapter(adapter);
 
-        presenter = new GamePresenter(this, GameApplication.getInstance().getGameManager());
+        presenter = new GamePresenter(this, new GameManager(this));
         presenter.start();
     }
 
@@ -60,6 +60,8 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
     @Override
     public void showOptions(ArrayList<Options> options) {
         adapter.setOptionsList(options);
+        adapter.notifyDataSetChanged();
+
     }
 
     @Override
