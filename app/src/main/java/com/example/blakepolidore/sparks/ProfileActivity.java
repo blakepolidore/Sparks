@@ -29,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         description.setText(descriptionText);
-        Picasso.with(this).load(imageUrl).into(image);
+        Picasso.with(this).load(imageUrl).transform(new PicassoTransformationCircle()).into(image);
     }
 
     private void setViews() {

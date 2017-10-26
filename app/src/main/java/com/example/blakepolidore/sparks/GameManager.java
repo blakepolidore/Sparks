@@ -2,6 +2,7 @@ package com.example.blakepolidore.sparks;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.blakepolidore.sparks.models.Options;
 import com.example.blakepolidore.sparks.models.Profile;
@@ -77,8 +78,7 @@ public class GameManager implements GameContract.Manager {
 
     @Override
     public void optionChosen(String answerId, final OptionChosenCallback callback) {
-        VoteBody body = new VoteBody(answerId, sharedPreferences.getString(GAME_ID, null
-        ));
+        VoteBody body = new VoteBody(answerId, sharedPreferences.getString(GAME_ID, null));
         retrofit.create(GameService.class).postResults(body)
                 .enqueue(new Callback<ResponseRoot>() {
                     @Override

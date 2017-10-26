@@ -49,7 +49,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (holder instanceof OptionsViewHolder) {
             ((OptionsViewHolder) holder).text.setText(option.getDescription());
 
-            Picasso.with(context).load(option.getImageUrl()).into(((OptionsViewHolder) holder).imageView);
+            Picasso.with(context).load(option.getImageUrl()).transform(new PicassoTransformationCircle()).into(((OptionsViewHolder) holder).imageView);
 
             ((OptionsViewHolder) holder).imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
