@@ -1,5 +1,6 @@
 package com.example.blakepolidore.sparks;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,9 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity implements GameContract.View, GameContract.AdapterListener {
+
+    public static final String IMAGEURL_KEY = "imageKey";
+    public static final String DESCRIPTION_KEY = "descriptionKey";
 
     private ImageView profile1Image, profile2Image;
     private RecyclerView recyclerView;
@@ -60,7 +64,10 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
 
     @Override
     public void onProfileClicked(String imageUrl, String description) {
-
+        Intent intent = new Intent(this, ProfileActivity.class);
+        intent.putExtra(IMAGEURL_KEY, imageUrl);
+        intent.putExtra(DESCRIPTION_KEY, description);
+        startActivity(intent);
     }
 
     @Override
