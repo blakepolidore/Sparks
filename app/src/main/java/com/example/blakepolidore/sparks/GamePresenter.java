@@ -2,6 +2,7 @@ package com.example.blakepolidore.sparks;
 
 import com.example.blakepolidore.sparks.models.Options;
 import com.example.blakepolidore.sparks.models.Profile;
+import com.example.blakepolidore.sparks.models.Result;
 
 import java.util.ArrayList;
 
@@ -23,9 +24,11 @@ public class GamePresenter implements GameContract.Presenter {
     public void start() {
         manager.retrieveData(new GameContract.Manager.DataRetrievalCallback() {
             @Override
-            public void onDataRetrieved(ArrayList<Options> options, ArrayList<Profile> profiles) {
+            public void onDataRetrieved(ArrayList<Options> options, ArrayList<Profile> profiles, String type) {
                 view.showOptions(options);
-                view.showProfiles(profiles);
+                if (type.equals(Result.ICEBREAKER)) {
+                    view.showProfiles(profiles);
+                }
             }
 
             @Override
@@ -41,16 +44,16 @@ public class GamePresenter implements GameContract.Presenter {
     }
 
     @Override
-    public void optionChosen(String id) {
-        manager.optionChosen(id, new GameContract.Manager.OptionChosenCallback() {
+    public void optionChosen(String answerId) {
+        manager.optionChosen(answerId, new GameContract.Manager.OptionChosenCallback() {
             @Override
             public void onSuccess() {
-                
+                view.showVoteSuccessful();
             }
 
             @Override
             public void onFailure() {
-
+                view.showVoteFailure();
             }
         });
     }

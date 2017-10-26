@@ -6,6 +6,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.blakepolidore.sparks.models.Options;
 import com.example.blakepolidore.sparks.models.Profile;
@@ -17,6 +19,7 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
 
     private ImageView profile1Image, profile2Image;
     private RecyclerView recyclerView;
+    private LinearLayout profileImageContainer;
 
     private GameContract.Presenter presenter;
     private OptionsAdapter adapter;
@@ -41,6 +44,7 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        profileImageContainer = (LinearLayout) findViewById(R.id.profile_image_container);
     }
 
     @Override
@@ -50,13 +54,9 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
 
     @Override
     public void showProfiles(ArrayList<Profile> profiles) {
-        if (profiles.size() > 1) {
-            setProfiles(profiles.get(0).getImageUrl(), profile1Image);
-            setProfiles(profiles.get(1).getImageUrl(), profile2Image);
-        } else {
-            setProfiles(profiles.get(0).getImageUrl(), profile1Image);
-            profile2Image.setVisibility(View.GONE);
-        }
+        setProfiles(profiles.get(0).getImageUrl(), profile1Image);
+        setProfiles(profiles.get(1).getImageUrl(), profile2Image);
+        profileImageContainer.setVisibility(View.VISIBLE);
     }
 
     private void setProfiles(String url, ImageView imageView) {
@@ -65,12 +65,12 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
 
     @Override
     public void showNoData() {
-
+        showErrorToast("Error receiving data. Please reload.");
     }
 
     @Override
-    public void onOptionChosen(String id) {
-        presenter.optionChosen(id);
+    public void onOptionChosen(String answerId) {
+        presenter.optionChosen(answerId);
     }
 
     @Override
@@ -80,6 +80,10 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
 
     @Override
     public void showVoteFailure() {
+        showErrorToast("Error receiving vote. Please try again.");
+    }
 
+    private void showErrorToast(String errorText) {
+        Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
     }
 }

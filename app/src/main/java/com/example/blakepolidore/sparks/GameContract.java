@@ -24,16 +24,16 @@ public interface GameContract {
         void start();
         void stop();
 
-        void optionChosen(String id);
+        void optionChosen(String answerId);
     }
 
     interface Manager {
         void retrieveData(DataRetrievalCallback callback);
 
-        void optionChosen(String id, OptionChosenCallback callback);
+        void optionChosen(String answerId, OptionChosenCallback callback);
 
         interface DataRetrievalCallback {
-            void onDataRetrieved(ArrayList<Options> options, ArrayList<Profile> profiles);
+            void onDataRetrieved(ArrayList<Options> options, ArrayList<Profile> profiles, String type);
             void onRetrievalFailed();
         }
 
@@ -44,6 +44,6 @@ public interface GameContract {
     }
 
     interface AdapterListener {
-        void onOptionChosen(String id);
+        void onOptionChosen(String answerId);
     }
 }
