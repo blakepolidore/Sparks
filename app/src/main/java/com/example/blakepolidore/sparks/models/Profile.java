@@ -6,20 +6,22 @@ package com.example.blakepolidore.sparks.models;
 
 public class Profile {
 
-    private String imageUrl;
+    private String img_url;
     private String description;
+    private String profile_id;
 
-    public Profile(String imageUrl, String description) {
-        this.imageUrl = imageUrl;
+    public Profile(String imageUrl, String description, String profile_id) {
+        this.img_url = imageUrl;
         this.description = description;
+        this.profile_id = profile_id;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return img_url;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.img_url = imageUrl;
     }
 
     public String getDescription() {
@@ -28,5 +30,13 @@ public class Profile {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getProfile_id() {
+        return profile_id;
+    }
+
+    public void setProfile_id(String profile_id) {
+        this.profile_id = profile_id;
     }
 }

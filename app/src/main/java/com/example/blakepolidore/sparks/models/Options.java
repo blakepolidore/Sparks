@@ -6,24 +6,24 @@ package com.example.blakepolidore.sparks.models;
 
 public class Options {
 
-    private String imageUrl;
+    private String img_url;
     private String description;
-    private String id;
-    private int numOfVotes;
+    private String options_id;
+    private int num_of_votes;
 
     public Options(String imageUrl, String description, String id, int numOfVotes) {
-        this.imageUrl = imageUrl;
+        this.img_url = imageUrl;
         this.description = description;
-        this.id = id;
-        this.numOfVotes = numOfVotes;
+        this.options_id = id;
+        this.num_of_votes = numOfVotes;
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return img_url;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+        this.img_url = imageUrl;
     }
 
     public String getDescription() {
@@ -34,19 +34,19 @@ public class Options {
         this.description = description;
     }
 
-    public String getId() {
-        return id;
+    public String getOptionId() {
+        return options_id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setOptionId(String id) {
+        this.options_id = id;
     }
 
     public int getNumOfVotes() {
-        return numOfVotes;
+        return num_of_votes;
     }
 
     public void setNumOfVotes(int numOfVotes) {
-        this.numOfVotes = numOfVotes;
+        this.num_of_votes = numOfVotes;
     }
 }

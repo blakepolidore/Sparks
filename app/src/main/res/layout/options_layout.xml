@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/options_container"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp">
     
     <ImageView
         android:id="@+id/options_image"
@@ -13,6 +14,8 @@
         android:id="@+id/options_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="See more"/>
+        android:text="See more"
+        android:layout_marginStart="20dp"
+        android:layout_gravity="center_vertical"/>
 
 </LinearLayout>

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.blakepolidore.sparks.models.Options;
@@ -19,6 +18,8 @@ import java.util.ArrayList;
  */
 
 public class OptionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    private final String TAG = "Options Adapter";
 
     private Context context;
     private ArrayList<Options> options;
@@ -45,14 +46,12 @@ public class OptionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final Options option = options.get(position);
         if (holder instanceof OptionsViewHolder) {
-            ((OptionsViewHolder) holder).text.setText(option.getDescription());
-
             Picasso.with(context).load(option.getImageUrl()).into(((OptionsViewHolder) holder).imageView);
 
             ((OptionsViewHolder) holder).imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onOptionChosen(option.getId());
+                    listener.onOptionChosen(option.getOptionId());
                 }
             });
 
