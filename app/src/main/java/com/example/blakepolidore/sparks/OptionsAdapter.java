@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.blakepolidore.sparks.models.Options;
@@ -46,6 +47,8 @@ public class OptionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         final Options option = options.get(position);
         if (holder instanceof OptionsViewHolder) {
+            ((OptionsViewHolder) holder).text.setText(option.getDescription());
+
             Picasso.with(context).load(option.getImageUrl()).into(((OptionsViewHolder) holder).imageView);
 
             ((OptionsViewHolder) holder).imageView.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +59,13 @@ public class OptionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             });
 
             ((OptionsViewHolder) holder).text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onProfileClicked(option.getImageUrl(), option.getDescription());
+                }
+            });
+
+            ((OptionsViewHolder) holder).container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     listener.onProfileClicked(option.getImageUrl(), option.getDescription());
@@ -73,11 +83,13 @@ public class OptionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         private ImageView imageView;
         private TextView text;
+        private LinearLayout container;
 
         public OptionsViewHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.options_image);
             text = (TextView) itemView.findViewById(R.id.options_text);
+            container = (LinearLayout) itemView.findViewById(R.id.options_container);
         }
     }
 }

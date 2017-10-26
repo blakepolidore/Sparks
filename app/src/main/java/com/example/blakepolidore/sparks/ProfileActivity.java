@@ -1,7 +1,6 @@
 package com.example.blakepolidore.sparks;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -19,19 +18,18 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView image;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
         setViews();
 
-        if (getIntent() != null) {
-            String imageUrl = getIntent().getStringExtra(GameActivity.IMAGEURL_KEY);
-            String descriptionText = getIntent().getStringExtra(GameActivity.DESCRIPTION_KEY);
+        String imageUrl = getIntent().getStringExtra(GameActivity.IMAGEURL_KEY);
+        String descriptionText = getIntent().getStringExtra(GameActivity.DESCRIPTION_KEY);
 
-            description.setText(descriptionText);
-            Picasso.with(this).load(imageUrl).into(image);
-        }
+
+        description.setText(descriptionText);
+        Picasso.with(this).load(imageUrl).into(image);
     }
 
     private void setViews() {
