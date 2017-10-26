@@ -67,10 +67,12 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
 
     @Override
     public void onProfileClicked(String imageUrl, String description) {
-        Intent intent = new Intent(this, ProfileActivity.class);
-        intent.putExtra(IMAGEURL_KEY, imageUrl);
-        intent.putExtra(DESCRIPTION_KEY, description);
-        startActivity(intent);
+        if (profileImageContainer.getVisibility() != View.VISIBLE) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra(IMAGEURL_KEY, imageUrl);
+            intent.putExtra(DESCRIPTION_KEY, description);
+            startActivity(intent);
+        }
     }
 
     @Override
