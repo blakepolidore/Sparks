@@ -45,5 +45,6 @@ public interface GameContract {
 
     interface AdapterListener {
         void onOptionChosen(String answerId);
+        void onProfileClicked(String imageUrl, String description);
     }
 }

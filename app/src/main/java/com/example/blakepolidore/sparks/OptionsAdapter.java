@@ -45,9 +45,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         Options option = options.get(position);
         if (holder instanceof OptionsViewHolder) {
-            ((OptionsViewHolder) holder).text1.setText(option.getText1());
-            ((OptionsViewHolder) holder).text2.setText(option.getText2());
-            ((OptionsViewHolder) holder).text3.setText(option.getText3());
+            ((OptionsViewHolder) holder).text.setText(option.getDescription());
 
             Picasso.with(context).load(option.getImageUrl()).into(((OptionsViewHolder) holder).imageView);
         }
@@ -61,21 +59,27 @@ public class OptionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public class OptionsViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
-        private TextView text1, text2, text3;
+        private TextView text;
         private LinearLayout container;
 
         public OptionsViewHolder(View itemView) {
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.options_image);
-            text1 = (TextView) itemView.findViewById(R.id.options_text1);
-            text2 = (TextView) itemView.findViewById(R.id.options_text2);
-            text3 = (TextView) itemView.findViewById(R.id.options_text3);
-            container = (LinearLayout) itemView.findViewById(R.id.options_container);
+            text = (TextView) itemView.findViewById(R.id.options_text);
 
-            container.setOnClickListener(new View.OnClickListener() {
+            final Options option = options.get(getAdapterPosition());
+
+            imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.onOptionChosen(options.get(getAdapterPosition()).getId());
+                    listener.onOptionChosen(option.getId());
+                }
+            });
+
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onProfileClicked(option.getImageUrl(), option.getDescription());
                 }
             });
         }

@@ -38,6 +38,12 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
         presenter.start();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.stop();
+    }
+
     private void setViews() {
         profile1Image = (ImageView) findViewById(R.id.profile1_image);
         profile2Image = (ImageView) findViewById(R.id.profile2_image);
@@ -50,6 +56,11 @@ public class GameActivity extends AppCompatActivity implements GameContract.View
     @Override
     public void showOptions(ArrayList<Options> options) {
         adapter.setOptionsList(options);
+    }
+
+    @Override
+    public void onProfileClicked(String imageUrl, String description) {
+
     }
 
     @Override

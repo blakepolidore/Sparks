@@ -7,15 +7,13 @@ package com.example.blakepolidore.sparks.models;
 public class Options {
 
     private String imageUrl;
-    private String text1, text2, text3;
+    private String description;
     private String id;
     private String numOfVotes;
 
-    public Options(String imageUrl, String text1, String text2, String text3, String id, String numOfVotes) {
+    public Options(String imageUrl, String description, String id, String numOfVotes) {
         this.imageUrl = imageUrl;
-        this.text1 = text1;
-        this.text2 = text2;
-        this.text3 = text3;
+        this.description = description;
         this.id = id;
         this.numOfVotes = numOfVotes;
     }
@@ -28,28 +26,12 @@ public class Options {
         this.imageUrl = imageUrl;
     }
 
-    public String getText1() {
-        return text1;
+    public String getDescription() {
+        return description;
     }
 
-    public void setText1(String text1) {
-        this.text1 = text1;
-    }
-
-    public String getText2() {
-        return text2;
-    }
-
-    public void setText2(String text2) {
-        this.text2 = text2;
-    }
-
-    public String getText3() {
-        return text3;
-    }
-
-    public void setText3(String text3) {
-        this.text3 = text3;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getId() {
