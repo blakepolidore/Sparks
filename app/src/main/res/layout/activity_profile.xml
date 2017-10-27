@@ -16,4 +16,15 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"/>
 
+    <TextView
+        android:id="@+id/vote_button"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/circle_button"
+        android:layout_gravity="center_horizontal"
+        android:text="VOTE!"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"/>
+
 </LinearLayout>
